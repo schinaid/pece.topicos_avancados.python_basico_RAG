@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="A camada de nível muito alto" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/c-api/veryhigh.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="As funções neste capítulo permitirão que você execute um código-fonte Python fornecido em um arquivo ou buffer, mas não permitirão que você interaja de forma mais detalhada com o interpretador. Vár..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_c-api_veryhigh_b01cc4fb.png" />
+<meta property="og:image:alt" content="As funções neste capítulo permitirão que você execute um código-fonte Python fornecido em um arquivo ou buffer, mas não permitirão que você interaja de forma mais detalhada com o interpretador. Vár..." />
+<meta name="description" content="As funções neste capítulo permitirão que você execute um código-fonte Python fornecido em um arquivo ou buffer, mas não permitirão que você interaja de forma mais detalhada com o interpretador. Vár..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>A camada de nível muito alto &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    <link rel="next" title="Contagem de Referências" href="refcounting.html" />
+    <link rel="prev" title="Estabilidade da API C" href="stable.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/c-api/veryhigh.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="stable.html"
+                          title="capítulo anterior">Estabilidade da API C</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="refcounting.html"
+                          title="próximo capítulo">Contagem de Referências</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/veryhigh.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="refcounting.html" title="Contagem de Referências"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="stable.html" title="Estabilidade da API C"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Manual de referência da API Python/C</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">A camada de nível muito alto</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="the-very-high-level-layer">
+<span id="veryhigh"></span><h1 class="translated">A camada de nível muito alto<a class="headerlink" href="#the-very-high-level-layer" title="Link para este cabeçalho">¶</a></h1>
+<p class="translated">As funções neste capítulo permitirão que você execute um código-fonte Python fornecido em um arquivo ou buffer, mas não permitirão que você interaja de forma mais detalhada com o interpretador.</p>
+<p class="translated">Várias dessas funções aceitam um símbolo de início da gramática como parâmetro. Os símbolos de início disponíveis são <a class="reference internal" href="#c.Py_eval_input" title="Py_eval_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_eval_input</span></code></a>, <a class="reference internal" href="#c.Py_file_input" title="Py_file_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_file_input</span></code></a> e <a class="reference internal" href="#c.Py_single_input" title="Py_single_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_single_input</span></code></a>. Eles são descritos seguindo as funções que os aceitam como parâmetros.</p>
+<p class="translated">Note também que várias dessas funções aceitam parâmetros <span class="c-expr sig sig-inline c"><span class="n">FILE</span><span class="p">*</span></span>. Um problema específico que precisa ser tratado com cuidado é que a estrutura <code class="xref c c-type docutils literal notranslate"><span class="pre">FILE</span></code> para diferentes bibliotecas C pode ser diferente e incompatível. No Windows (pelo menos), é possível que extensões vinculadas dinamicamente usem bibliotecas diferentes, então deve-se tomar cuidado para que os parâmetros <span class="c-expr sig sig-inline c"><span class="n">FILE</span><span class="p">*</span></span> sejam passados para essas funções somente se for certo que elas foram criadas pela mesma biblioteca que o tempo de execução do Python está usando.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_AnyFile">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_AnyFile</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_AnyFile" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_AnyFileExFlags" title="PyRun_AnyFileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_AnyFileExFlags()</span></code></a> abaixo, deixando <em>closeit</em> definido como <code class="docutils literal notranslate"><span class="pre">0</span></code> e <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_AnyFileFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_AnyFileFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_AnyFileFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_AnyFileExFlags" title="PyRun_AnyFileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_AnyFileExFlags()</span></code></a> abaixo, deixando o argumento <em>closeit</em> definido como <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_AnyFileEx">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_AnyFileEx</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_AnyFileEx" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_AnyFileExFlags" title="PyRun_AnyFileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_AnyFileExFlags()</span></code></a> abaixo, deixando o argumento <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_AnyFileExFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_AnyFileExFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_AnyFileExFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Se <em>fp</em> se referir a um arquivo associado a um dispositivo interativo (entrada de console ou terminal ou pseudo-terminal Unix), retorna o valor de <a class="reference internal" href="#c.PyRun_InteractiveLoop" title="PyRun_InteractiveLoop"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_InteractiveLoop()</span></code></a>, caso contrário, retorna o resultado de <a class="reference internal" href="#c.PyRun_SimpleFile" title="PyRun_SimpleFile"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_SimpleFile()</span></code></a>. <em>filename</em> é decodificado da codificação do sistema de arquivos (<a class="reference internal" href="../library/sys.html#sys.getfilesystemencoding" title="sys.getfilesystemencoding"><code class="xref py py-func docutils literal notranslate"><span class="pre">sys.getfilesystemencoding()</span></code></a>). Se <em>filename</em> for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, esta função usa <code class="docutils literal notranslate"><span class="pre">&quot;???&quot;</span></code> como o nome do arquivo. Se <em>closeit</em> for verdadeiro, o arquivo será fechado antes de <code class="docutils literal notranslate"><span class="pre">PyRun_SimpleFileExFlags()</span></code> retornar.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_SimpleString">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_SimpleString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">command</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_SimpleString" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_SimpleStringFlags" title="PyRun_SimpleStringFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_SimpleStringFlags()</span></code></a> abaixo, deixando o argumento <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><code class="xref c c-struct docutils literal notranslate"><span class="pre">PyCompilerFlags</span></code></a>* definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_SimpleStringFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_SimpleStringFlags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">command</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_SimpleStringFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Executa o código-fonte Python de <em>command</em> no módulo <a class="reference internal" href="../library/__main__.html#module-__main__" title="__main__: The environment where top-level code is run. Covers command-line interfaces, import-time behavior, and ``__name__ == '__main__'``."><code class="xref py py-mod docutils literal notranslate"><span class="pre">__main__</span></code></a> de acordo com o argumento <em>flags</em>. Se <a class="reference internal" href="../library/__main__.html#module-__main__" title="__main__: The environment where top-level code is run. Covers command-line interfaces, import-time behavior, and ``__name__ == '__main__'``."><code class="xref py py-mod docutils literal notranslate"><span class="pre">__main__</span></code></a> ainda não existir, ele será criado. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso ou <code class="docutils literal notranslate"><span class="pre">-1</span></code> se uma exceção foi gerada. Se houve um erro, não há como obter as informações da exceção. Para o significado de <em>flags</em>, veja abaixo.</p>
+<p class="translated">Observe que se uma exceção <a class="reference internal" href="../library/exceptions.html#SystemExit" title="SystemExit"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemExit</span></code></a> não tratada for levantada, esta função não retornará <code class="docutils literal notranslate"><span class="pre">-1</span></code>, mas sairá do processo, desde que <a class="reference internal" href="init_config.html#c.PyConfig.inspect" title="PyConfig.inspect"><code class="xref c c-member docutils literal notranslate"><span class="pre">PyConfig.inspect</span></code></a> seja zero.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_SimpleFile">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_SimpleFile</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_SimpleFile" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_SimpleFileExFlags" title="PyRun_SimpleFileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_SimpleFileExFlags()</span></code></a> abaixo, deixando <em>closeit</em> definido como <code class="docutils literal notranslate"><span class="pre">0</span></code> e <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_SimpleFileEx">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_SimpleFileEx</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_SimpleFileEx" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_SimpleFileExFlags" title="PyRun_SimpleFileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_SimpleFileExFlags()</span></code></a> abaixo, deixando o <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_SimpleFileExFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_SimpleFileExFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_SimpleFileExFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Semelhante a <a class="reference internal" href="#c.PyRun_SimpleStringFlags" title="PyRun_SimpleStringFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_SimpleStringFlags()</span></code></a>, mas o código-fonte Python é lido de <em>fp</em> em vez de uma string na memória. <em>filename</em> deve ser o nome do arquivo, ele é decodificado a partir do <a class="reference internal" href="../glossary.html#term-filesystem-encoding-and-error-handler"><span class="xref std std-term">tratador de erros e codificação do sistema de arquivos</span></a>. Se <em>closeit</em> for true, o arquivo será fechado antes que <code class="docutils literal notranslate"><span class="pre">PyRun_SimpleFileExFlags()</span></code> retorne.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p class="translated">No Windows, <em>fp</em> deve ser aberto como modo binário (por exemplo, <code class="docutils literal notranslate"><span class="pre">fopen(filename,</span> <span class="pre">&quot;rb&quot;)</span></code>). Caso contrário, o Python pode não manipular corretamente o arquivo de script com final de linha LF.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_InteractiveOne">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_InteractiveOne</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_InteractiveOne" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_InteractiveOneFlags" title="PyRun_InteractiveOneFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_InteractiveOneFlags()</span></code></a> abaixo, deixando <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_InteractiveOneFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_InteractiveOneFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_InteractiveOneFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Lê e executa uma única instrução de um arquivo associado a um dispositivo interativo de acordo com o argumento <em>flags</em>. O usuário será solicitado usando <code class="docutils literal notranslate"><span class="pre">sys.ps1</span></code> e <code class="docutils literal notranslate"><span class="pre">sys.ps2</span></code>. <em>filename</em> é decodificado a partir do <a class="reference internal" href="../glossary.html#term-filesystem-encoding-and-error-handler"><span class="xref std std-term">tratador de erros e codificação do sistema de arquivos</span></a>.</p>
+<p class="translated">Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> quando a entrada foi executada com sucesso, <code class="docutils literal notranslate"><span class="pre">-1</span></code> se houve uma exceção ou um código de erro do arquivo de inclusão <code class="file docutils literal notranslate"><span class="pre">errcode.h</span></code> distribuído como parte do Python se houve um erro de análise. (Observe que <code class="file docutils literal notranslate"><span class="pre">errcode.h</span></code> não é incluído por <code class="file docutils literal notranslate"><span class="pre">Python.h</span></code>, então deve ser incluído especificamente se necessário.)</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_InteractiveLoop">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_InteractiveLoop</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_InteractiveLoop" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_InteractiveLoopFlags" title="PyRun_InteractiveLoopFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_InteractiveLoopFlags()</span></code></a> abaixo, deixando <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_InteractiveLoopFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_InteractiveLoopFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_InteractiveLoopFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Lê e executa instruções de um arquivo associado a um dispositivo interativo até que o EOF seja atingido. O usuário será consultado usando <code class="docutils literal notranslate"><span class="pre">sys.ps1</span></code> e <code class="docutils literal notranslate"><span class="pre">sys.ps2</span></code>. <em>filename</em> é decodificado a partir do <a class="reference internal" href="../glossary.html#term-filesystem-encoding-and-error-handler"><span class="xref std std-term">tratador de erros e codificação do sistema de arquivos</span></a>. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> no EOF ou um número negativo em caso de falha.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyOS_InputHook">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyOS_InputHook</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#c.PyOS_InputHook" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Pode ser definido para apontar para uma função com o protótipo <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">func(void)</span></code>. A função será chamada quando o prompt do interpretador do Python estiver prestes a ficar ocioso e aguardar a entrada do usuário no terminal. O valor de retorno é ignorado. A substituição deste hook pode ser usada para integrar o prompt do interpretador com outros laços de eventos, como feito em <code class="file docutils literal notranslate"><span class="pre">Modules/_tkinter.c</span></code> no código-fonte do Python.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.12: </span>Esta função só é chamada pelo <a class="reference internal" href="init.html#sub-interpreter-support"><span class="std std-ref">interpretador principal</span></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyOS_ReadlineFunctionPointer">
+<span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyOS_ReadlineFunctionPointer</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">FILE</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">FILE</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#c.PyOS_ReadlineFunctionPointer" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Pode ser definido para apontar para uma função com o protótipo <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*func(FILE</span> <span class="pre">*stdin,</span> <span class="pre">FILE</span> <span class="pre">*stdout,</span> <span class="pre">char</span> <span class="pre">*prompt)</span></code>, substituindo a função padrão usada para ler uma única linha de entrada no prompt do interpretador. Espera-se que a função produza a string <em>prompt</em> se não for <code class="docutils literal notranslate"><span class="pre">NULL</span></code> e, em seguida, leia uma linha de entrada do arquivo de entrada padrão fornecido, retornando a string resultante. Por exemplo, o módulo <a class="reference internal" href="../library/readline.html#module-readline" title="readline: GNU readline support for Python. (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readline</span></code></a> define este gancho para fornecer recursos de edição de linha e preenchimento de tabulação.</p>
+<p class="translated">O resultado deve ser uma string alocada por <a class="reference internal" href="memory.html#c.PyMem_RawMalloc" title="PyMem_RawMalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_RawMalloc()</span></code></a> ou <a class="reference internal" href="memory.html#c.PyMem_RawRealloc" title="PyMem_RawRealloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_RawRealloc()</span></code></a>, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se ocorrer um erro.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.4: </span>O resultado deve ser alocado por <a class="reference internal" href="memory.html#c.PyMem_RawMalloc" title="PyMem_RawMalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_RawMalloc()</span></code></a> ou <a class="reference internal" href="memory.html#c.PyMem_RawRealloc" title="PyMem_RawRealloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_RawRealloc()</span></code></a>, em vez de ser alocado por <a class="reference internal" href="memory.html#c.PyMem_Malloc" title="PyMem_Malloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_Malloc()</span></code></a> ou <a class="reference internal" href="memory.html#c.PyMem_Realloc" title="PyMem_Realloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMem_Realloc()</span></code></a>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.12: </span>Esta função só é chamada pelo <a class="reference internal" href="init.html#sub-interpreter-support"><span class="std std-ref">interpretador principal</span></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_String">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_String</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_String" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_StringFlags" title="PyRun_StringFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_StringFlags()</span></code></a> abaixo, deixando <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_StringFlags">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_StringFlags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_StringFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Execut o código-fonte Python de <em>str</em> no contexto especificado pelos objetos <em>globals</em> e <em>locals</em> com os sinalizadores do compilador especificados por <em>flags</em>. <em>globals</em> deve ser um dicionário; <em>locals</em> pode ser qualquer objeto que implemente o protocolo de mapeamento. O parâmetro <em>start</em> especifica o token de início que deve ser usado para analisar o código-fonte.</p>
+<p class="translated">Retorna o resultado da execução do código como um objeto Python, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se uma exceção foi levantada.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_File">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_File</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_File" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_FileExFlags" title="PyRun_FileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_FileExFlags()</span></code></a> abaixo, deixando <em>closeit</em> definido como <code class="docutils literal notranslate"><span class="pre">0</span></code> e <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_FileEx">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_FileEx</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_FileEx" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_FileExFlags" title="PyRun_FileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_FileExFlags()</span></code></a> abaixo, deixando <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_FileFlags">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_FileFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_FileFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyRun_FileExFlags" title="PyRun_FileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_FileExFlags()</span></code></a> abaixo, deixando <em>closeit</em> definido como <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyRun_FileExFlags">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyRun_FileExFlags</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FILE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fp</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">closeit</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyRun_FileExFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Semelhante a <a class="reference internal" href="#c.PyRun_StringFlags" title="PyRun_StringFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_StringFlags()</span></code></a>, mas o código-fonte Python é lido de <em>fp</em> em vez de uma string na memória. <em>filename</em> deve ser o nome do arquivo, ele é decodificado a partir do <a class="reference internal" href="../glossary.html#term-filesystem-encoding-and-error-handler"><span class="xref std std-term">tratador de erros e codificação do sistema de arquivos</span></a>. Se <em>closeit</em> for true, o arquivo será fechado antes que <a class="reference internal" href="#c.PyRun_FileExFlags" title="PyRun_FileExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyRun_FileExFlags()</span></code></a> retorne.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.Py_CompileString">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Py_CompileString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Py_CompileString" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.Py_CompileStringFlags" title="Py_CompileStringFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileStringFlags()</span></code></a> abaixo, deixando <em>flags</em> definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.Py_CompileStringFlags">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Py_CompileStringFlags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Py_CompileStringFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.Py_CompileStringExFlags" title="Py_CompileStringExFlags"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileStringExFlags()</span></code></a> abaixo, com <em>optimize</em> definido como <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.Py_CompileStringObject">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Py_CompileStringObject</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">optimize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Py_CompileStringObject" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Analisa e compil o código-fonte Python em <em>str</em>, retornando o objeto de código resultante. O token inicial é fornecido por <em>start</em>; isso pode ser usado para restringir o código que pode ser compilado e deve ser <a class="reference internal" href="#c.Py_eval_input" title="Py_eval_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_eval_input</span></code></a>, <a class="reference internal" href="#c.Py_file_input" title="Py_file_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_file_input</span></code></a> ou <a class="reference internal" href="#c.Py_single_input" title="Py_single_input"><code class="xref c c-data docutils literal notranslate"><span class="pre">Py_single_input</span></code></a>. O nome do arquivo especificado por <em>filename</em> é usado para construir o objeto de código e pode aparecer em tracebacks ou mensagens de exceção <a class="reference internal" href="../library/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a>. Isso retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se o código não puder ser analisado ou compilado.</p>
+<p class="translated">O inteiro <em>optimize</em> especifica o nível de otimização do compilador; um valor de <code class="docutils literal notranslate"><span class="pre">-1</span></code> seleciona o nível de otimização do interpretador dado pela opção <a class="reference internal" href="../using/cmdline.html#cmdoption-O"><code class="xref std std-option docutils literal notranslate"><span class="pre">-O</span></code></a>. Níveis explícitos são <code class="docutils literal notranslate"><span class="pre">0</span></code> (nenhuma otimização; <code class="docutils literal notranslate"><span class="pre">__debug__</span></code> é verdadeiro), <code class="docutils literal notranslate"><span class="pre">1</span></code> (instruções <code class="docutils literal notranslate"><span class="pre">assert</span></code> são removidas, <code class="docutils literal notranslate"><span class="pre">__debug__</span></code> é falso) ou <code class="docutils literal notranslate"><span class="pre">2</span></code> (strings de documentação também são removidas).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Adicionado na versão 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.Py_CompileStringExFlags">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Py_CompileStringExFlags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">start</span></span>, <a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">flags</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">optimize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Py_CompileStringExFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Como <a class="reference internal" href="#c.Py_CompileStringObject" title="Py_CompileStringObject"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileStringObject()</span></code></a>, mas <em>filename</em> é uma string de bytes decodificada a partir do <a class="reference internal" href="../glossary.html#term-filesystem-encoding-and-error-handler"><span class="xref std std-term">tratador de erros e codificação do sistema de arquivos</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Adicionado na versão 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyEval_EvalCode">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyEval_EvalCode</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">co</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyEval_EvalCode" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta é uma interface simplificada para <a class="reference internal" href="#c.PyEval_EvalCodeEx" title="PyEval_EvalCodeEx"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyEval_EvalCodeEx()</span></code></a>, com apenas o objeto código e variáveis locais e globais. Os outros argumentos são definidos como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyEval_EvalCodeEx">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyEval_EvalCodeEx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">co</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">globals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">locals</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">argcount</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">kws</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">kwcount</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">defs</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">defcount</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">kwdefs</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">closure</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyEval_EvalCodeEx" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Avalia um objeto código pré-compilado, dado um ambiente particular para sua avaliação. Este ambiente consiste em um dicionário de variáveis globais, um objeto mapeamento de variáveis locais, vetores de argumentos, nomeados e padrões, um dicionário de valores padrões para argumentos <a class="reference internal" href="../glossary.html#keyword-only-parameter"><span class="std std-ref">somente-nomeados</span></a> e uma tupla de clausura de células.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyEval_EvalFrame">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyEval_EvalFrame</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="frame.html#c.PyFrameObject" title="PyFrameObject"><span class="n"><span class="pre">PyFrameObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyEval_EvalFrame" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Avalia um quadro de execução. Esta é uma interface simplificada para <a class="reference internal" href="#c.PyEval_EvalFrameEx" title="PyEval_EvalFrameEx"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyEval_EvalFrameEx()</span></code></a>, para retrocompatibilidade.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyEval_EvalFrameEx">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyEval_EvalFrameEx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="frame.html#c.PyFrameObject" title="PyFrameObject"><span class="n"><span class="pre">PyFrameObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">f</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">throwflag</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyEval_EvalFrameEx" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta é a função principal e sem retoques da interpretação Python. O objeto código associado ao quadro de execução <em>f</em> é executado, interpretando bytecode e executando chamadas conforme necessário. O parâmetro adicional <em>throwflag</em> pode ser ignorado na maioria das vezes - se verdadeiro, ele faz com que uma exceção seja levantada imediatamente; isso é usado para os métodos <a class="reference internal" href="../reference/expressions.html#generator.throw" title="generator.throw"><code class="xref py py-meth docutils literal notranslate"><span class="pre">throw()</span></code></a> de objetos geradores.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.4: </span>Essa função agora inclui uma asserção de depuração para ajudar a garantir que ela não descarte silenciosamente uma exceção ativa.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyEval_MergeCompilerFlags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyEval_MergeCompilerFlags</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.PyCompilerFlags" title="PyCompilerFlags"><span class="n"><span class="pre">PyCompilerFlags</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">cf</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyEval_MergeCompilerFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta função altera os sinalizadores do quadro de avaliação atual e retorna verdadeiro em caso de sucesso e falso em caso de falha.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.Py_eval_input">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Py_eval_input</span></span></span><a class="headerlink" href="#c.Py_eval_input" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated" id="index-0">O símbolo inicial da gramática Python para expressões isoladas; para uso com <a class="reference internal" href="#c.Py_CompileString" title="Py_CompileString"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileString()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.Py_file_input">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Py_file_input</span></span></span><a class="headerlink" href="#c.Py_file_input" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated" id="index-1">O símbolo de início da gramática Python para sequências de instruções conforme lidas de um arquivo ou outra fonte; para uso com <a class="reference internal" href="#c.Py_CompileString" title="Py_CompileString"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileString()</span></code></a>. Este é o símbolo a ser usado ao compilar código-fonte Python arbitrariamente longo.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.Py_single_input">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Py_single_input</span></span></span><a class="headerlink" href="#c.Py_single_input" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated" id="index-2">O símbolo de início da gramática Python para uma única declaração; para uso com <a class="reference internal" href="#c.Py_CompileString" title="Py_CompileString"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_CompileString()</span></code></a>. Este é o símbolo usado para o laço do interpretador interativo.</p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.PyCompilerFlags">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyCompilerFlags</span></span></span><a class="headerlink" href="#c.PyCompilerFlags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é a estrutura usada para manter os sinalizadores do compilador. Em casos onde o código está apenas sendo compilado, ele é passado como <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">flags</span></code>, e em casos onde o código está sendo executado, ele é passado como <code class="docutils literal notranslate"><span class="pre">PyCompilerFlags</span> <span class="pre">*flags</span></code>. Neste caso, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span></code> pode modificar <em>flags</em>.</p>
+<p class="translated">Sempre que <code class="docutils literal notranslate"><span class="pre">PyCompilerFlags</span> <span class="pre">*flags</span></code> for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, <a class="reference internal" href="#c.PyCompilerFlags.cf_flags" title="PyCompilerFlags.cf_flags"><code class="xref c c-member docutils literal notranslate"><span class="pre">cf_flags</span></code></a> é tratado como igual a <code class="docutils literal notranslate"><span class="pre">0</span></code>, e qualquer modificação devido a <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span></code> é descartada.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyCompilerFlags.cf_flags">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cf_flags</span></span></span><a class="headerlink" href="#c.PyCompilerFlags.cf_flags" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Sinalizadores do compilador.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyCompilerFlags.cf_feature_version">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cf_feature_version</span></span></span><a class="headerlink" href="#c.PyCompilerFlags.cf_feature_version" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated"><em>cf_feature_version</em> é a versão secundária do Python. Deve ser inicializada como <code class="docutils literal notranslate"><span class="pre">PY_MINOR_VERSION</span></code>.</p>
+<p class="translated">O campo é ignorado por padrão, ele é usado se e somente se o sinalizador <code class="docutils literal notranslate"><span class="pre">PyCF_ONLY_AST</span></code> estiver definido em <a class="reference internal" href="#c.PyCompilerFlags.cf_flags" title="PyCompilerFlags.cf_flags"><code class="xref c c-member docutils literal notranslate"><span class="pre">cf_flags</span></code></a>.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.8: </span>Adicionado campo <em>cf_feature_version</em>.</p>
+</div>
+<p class="translated">Os sinalizadores do compilador disponíveis são acessíveis como macros:</p>
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyCF_ALLOW_TOP_LEVEL_AWAIT">
+<span class="sig-name descname"><span class="n"><span class="pre">PyCF_ALLOW_TOP_LEVEL_AWAIT</span></span></span><a class="headerlink" href="#c.PyCF_ALLOW_TOP_LEVEL_AWAIT" title="Link para esta definição">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.PyCF_ONLY_AST">
+<span class="sig-name descname"><span class="n"><span class="pre">PyCF_ONLY_AST</span></span></span><a class="headerlink" href="#c.PyCF_ONLY_AST" title="Link para esta definição">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.PyCF_OPTIMIZED_AST">
+<span class="sig-name descname"><span class="n"><span class="pre">PyCF_OPTIMIZED_AST</span></span></span><a class="headerlink" href="#c.PyCF_OPTIMIZED_AST" title="Link para esta definição">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.PyCF_TYPE_COMMENTS">
+<span class="sig-name descname"><span class="n"><span class="pre">PyCF_TYPE_COMMENTS</span></span></span><a class="headerlink" href="#c.PyCF_TYPE_COMMENTS" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Veja <a class="reference internal" href="../library/ast.html#ast-compiler-flags"><span class="std std-ref">sinalizadores do compilador</span></a> na documentação do módulo Python <code class="xref py py-mod docutils literal notranslate"><span class="pre">ast</span></code>, que exporta essas constantes com os mesmos nomes.</p>
+</dd></dl>
+
+<p class="untranslated">The “<code class="docutils literal notranslate"><span class="pre">PyCF</span></code>” flags above can be combined with “<code class="docutils literal notranslate"><span class="pre">CO_FUTURE</span></code>” flags such
+as <a class="reference internal" href="code.html#c.CO_FUTURE_ANNOTATIONS" title="CO_FUTURE_ANNOTATIONS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">CO_FUTURE_ANNOTATIONS</span></code></a> to enable features normally
+selectable using <a class="reference internal" href="../reference/simple_stmts.html#future"><span class="std std-ref">future statements</span></a>.
+See <a class="reference internal" href="code.html#c-codeobject-flags"><span class="std std-ref">Code Object Flags</span></a> for a complete list.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="stable.html"
+                          title="capítulo anterior">Estabilidade da API C</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="refcounting.html"
+                          title="próximo capítulo">Contagem de Referências</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/veryhigh.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="refcounting.html" title="Contagem de Referências"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="stable.html" title="Estabilidade da API C"
+             >anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">A camada de nível muito alto</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

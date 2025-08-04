@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Objetos bytes" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/c-api/bytes.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="Estas funções levantam TypeError quando se espera um parâmetro bytes e são chamados com um parâmetro que não é bytes." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_c-api_bytes_fed3c348.png" />
+<meta property="og:image:alt" content="Estas funções levantam TypeError quando se espera um parâmetro bytes e são chamados com um parâmetro que não é bytes." />
+<meta name="description" content="Estas funções levantam TypeError quando se espera um parâmetro bytes e são chamados com um parâmetro que não é bytes." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Objetos bytes &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    <link rel="next" title="Objetos byte array" href="bytearray.html" />
+    <link rel="prev" title="Objetos números complexos" href="complex.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/c-api/bytes.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="complex.html"
+                          title="capítulo anterior">Objetos números complexos</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="bytearray.html"
+                          title="próximo capítulo">Objetos byte array</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/bytes.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="bytearray.html" title="Objetos byte array"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="complex.html" title="Objetos números complexos"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos bytes</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="bytes-objects">
+<span id="bytesobjects"></span><h1 class="translated">Objetos bytes<a class="headerlink" href="#bytes-objects" title="Link para este cabeçalho">¶</a></h1>
+<p class="translated">Estas funções levantam <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> quando se espera um parâmetro bytes e são chamados com um parâmetro que não é bytes.</p>
+<dl class="c type" id="index-0">
+<dt class="sig sig-object c" id="c.PyBytesObject">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytesObject</span></span></span><a class="headerlink" href="#c.PyBytesObject" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Esta é uma instância de <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> representando o objeto bytes do Python.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyBytes_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_Type</span></span></span><a class="headerlink" href="#c.PyBytes_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta instância de <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyTypeObject</span></code></a> representa o tipo de bytes Python; é o mesmo objeto que <a class="reference internal" href="../library/stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> na camada de Python.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_Check">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_Check" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se o objeto <em>o</em> for um objeto bytes ou se for uma instância de um subtipo do tipo bytes. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se o objeto <em>o</em> for um objeto bytes, mas não uma instância de um subtipo do tipo bytes. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_FromString">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_FromString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_FromString" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna um novo objeto de bytes com uma cópia da string <em>v</em> como valor em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">NULL</span></code> em caso de falha. O parâmetro <em>v</em> não deve ser <code class="docutils literal notranslate"><span class="pre">NULL</span></code> e isso não será verificado.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_FromStringAndSize">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_FromStringAndSize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">v</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_FromStringAndSize" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna um novo objeto de bytes com uma cópia da string <em>v</em> como valor e comprimento <em>len</em> em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">NULL</span></code> em caso de falha. Se <em>v</em> for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, o conteúdo do objeto bytes não será inicializado.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_FromFormat">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_FromFormat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">format</span></span>, <span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_FromFormat" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Leva uma string tipo <code class="xref c c-func docutils literal notranslate"><span class="pre">printf()</span></code> do C <em>format</em> e um número variável de argumentos, calcula o tamanho do objeto bytes do Python resultante e retorna um objeto bytes com os valores formatados nela. Os argumentos da variável devem ser tipos C e devem corresponder exatamente aos caracteres de formato na string <em>format</em>. Os seguintes formatos de caracteres são permitidos:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p class="translated">Caracteres Formatados</p></th>
+<th class="head"><p class="translated">Tipo</p></th>
+<th class="head"><p class="translated">Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%%</span></code></p></td>
+<td><p class="translated"><em>n/d</em></p></td>
+<td><p class="translated">O caractere literal %.</p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%c</span></code></p></td>
+<td><p class="translated">int</p></td>
+<td><p class="translated">Um único byte, representado como um C int.</p></td>
+</tr>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
+<td><p class="translated">int</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%d&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%u</span></code></p></td>
+<td><p class="translated">unsigned int</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%u&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%ld</span></code></p></td>
+<td><p class="translated">long</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%ld&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%lu</span></code></p></td>
+<td><p class="translated">unsigned long</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%lu&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%zd</span></code></p></td>
+<td><p class="translated"><a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><code class="xref c c-type docutils literal notranslate"><span class="pre">Py_ssize_t</span></code></a></p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%zd&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%zu</span></code></p></td>
+<td><p class="translated">size_t</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%zu&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%i</span></code></p></td>
+<td><p class="translated">int</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%i&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%x</span></code></p></td>
+<td><p class="translated">int</p></td>
+<td><p class="translated">Equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%x&quot;)</span></code>. <a class="footnote-reference brackets" href="#id9" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%s</span></code></p></td>
+<td><p class="translated">const char*</p></td>
+<td><p class="translated">Uma matriz de caracteres C com terminação nula.</p></td>
+</tr>
+<tr class="row-odd"><td><p class="translated"><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<td><p class="translated">const void*</p></td>
+<td><p class="translated">A representação hexadecimal de um ponteiro C. Principalmente equivalente a <code class="docutils literal notranslate"><span class="pre">printf(&quot;%p&quot;)</span></code> exceto que é garantido que comece com o literal <code class="docutils literal notranslate"><span class="pre">0x</span></code> independentemente do que o <code class="docutils literal notranslate"><span class="pre">printf</span></code> da plataforma ceda.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="translated">Um caractere de formato não reconhecido faz com que todo o resto da string de formato seja copiado como é para o objeto resultante e todos os argumentos extras sejam descartados.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id3">3</a>,<a role="doc-backlink" href="#id4">4</a>,<a role="doc-backlink" href="#id5">5</a>,<a role="doc-backlink" href="#id6">6</a>,<a role="doc-backlink" href="#id7">7</a>,<a role="doc-backlink" href="#id8">8</a>)</span>
+<p class="translated">Para especificadores de número inteiro (d, u, ld, lu, zd, zu, i, x): o sinalizador de conversão 0 tem efeito mesmo quando uma precisão é fornecida.</p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_FromFormatV">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_FromFormatV</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">format</span></span>, <span class="n"><span class="pre">va_list</span></span><span class="w"> </span><span class="n"><span class="pre">vargs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_FromFormatV" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Idêntico a <a class="reference internal" href="#c.PyBytes_FromFormat" title="PyBytes_FromFormat"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytes_FromFormat()</span></code></a> exceto que é preciso exatamente dois argumentos.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_FromObject">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_FromObject</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_FromObject" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna a representação de bytes do objeto <em>o</em> que implementa o protocolo de buffer.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_Size">
+<a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_Size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_Size" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna o comprimento dos bytes em objeto bytes <em>o</em>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_GET_SIZE">
+<a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_GET_SIZE</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_GET_SIZE" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Similar a <a class="reference internal" href="#c.PyBytes_Size" title="PyBytes_Size"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytes_Size()</span></code></a>, mas sem verificação de erro.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_AsString">
+<span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_AsString</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_AsString" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna um ponteiro para o conteúdo de <em>o</em>. O ponteiro se refere ao buffer interno de <em>o</em>, que consiste em <code class="docutils literal notranslate"><span class="pre">len(o)</span> <span class="pre">+</span> <span class="pre">1</span></code> bytes. O último byte no buffer é sempre nulo, independentemente de haver outros bytes nulos. Os dados não devem ser modificados de forma alguma, a menos que o objeto tenha sido criado usando <code class="docutils literal notranslate"><span class="pre">PyBytes_FromStringAndSize(NULL,</span> <span class="pre">size)</span></code>. Não deve ser desalocado. Se <em>o</em> não é um objeto de bytes, <a class="reference internal" href="#c.PyBytes_AsString" title="PyBytes_AsString"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytes_AsString()</span></code></a> retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> e levanta <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_AS_STRING">
+<span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_AS_STRING</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">string</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_AS_STRING" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Similar a <a class="reference internal" href="#c.PyBytes_AsString" title="PyBytes_AsString"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytes_AsString()</span></code></a>, mas sem verificação de erro.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_AsStringAndSize">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_AsStringAndSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">obj</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">buffer</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">length</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_AsStringAndSize" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna os conteúdos terminados nulos do objeto <em>obj</em> através das variáveis de saída <em>buffer</em> e <em>length</em>. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso.</p>
+<p class="translated">Se <em>length</em> for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, o objeto bytes não poderá conter bytes nulos incorporados; se isso acontecer, a função retornará <code class="docutils literal notranslate"><span class="pre">-1</span></code> e a <a class="reference internal" href="../library/exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> será levantado.</p>
+<p class="translated">O buffer refere-se a um buffer interno de <em>obj</em>, que inclui um byte nulo adicional no final (não contado em <em>length</em>). Os dados não devem ser modificados de forma alguma, a menos que o objeto tenha sido criado apenas usando <code class="docutils literal notranslate"><span class="pre">PyBytes_FromStringAndSize(NULL,</span> <span class="pre">size)</span></code>. Não deve ser desalinhado. Se <em>obj</em> não é um objeto bytes, <a class="reference internal" href="#c.PyBytes_AsStringAndSize" title="PyBytes_AsStringAndSize"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytes_AsStringAndSize()</span></code></a> retorna <code class="docutils literal notranslate"><span class="pre">-1</span></code> e levanta <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.5: </span>Anteriormente <a class="reference internal" href="../library/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> era levantado quando os bytes nulos incorporados eram encontrados no objeto bytes.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_Concat">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_Concat</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">bytes</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">newpart</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_Concat" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Cria um novo objeto de bytes em <em>*bytes</em> contendo o conteúdo de <em>newpart</em> anexado a <em>bytes</em>; o chamador será o proprietário da nova referência. A referência ao valor antigo de <em>bytes</em> será roubada. Se o novo objeto não puder ser criado, a antiga referência a <em>bytes</em> ainda será descartada e o valor de <em>*bytes</em> será definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>; a exceção apropriada será definida.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyBytes_ConcatAndDel">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyBytes_ConcatAndDel</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">bytes</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">newpart</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyBytes_ConcatAndDel" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">“Crie um novo objeto bytes em <em>*bytes</em> contendo o conteúdo de newpart anexado a bytes. Esta versão libera a <a class="reference internal" href="../glossary.html#term-strong-reference"><span class="xref std std-term">strong reference</span></a> (referência forte) para newpart (ou seja, decrementa a contagem de referências a ele).”</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c._PyBytes_Resize">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_PyBytes_Resize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">bytes</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">newsize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c._PyBytes_Resize" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Redimensiona um objeto de bytes. <em>newsize</em> será o novo tamanho do objeto bytes. Você pode pensar nisso como se estivesse criando um novo objeto de bytes e destruindo o antigo, só que de forma mais eficiente. Passe o endereço de um objeto de bytes existente como um lvalue (pode ser gravado) e o novo tamanho desejado. Em caso de sucesso, <em>*bytes</em> mantém o objeto de bytes redimensionados e <code class="docutils literal notranslate"><span class="pre">0</span></code> é retornado; o endereço em <em>*bytes</em> pode diferir do seu valor de entrada. Se a realocação falhar, o objeto de bytes originais em <em>*bytes</em> é desalocado, <em>*bytes</em> é definido como <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, <a class="reference internal" href="../library/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> é definido e <code class="docutils literal notranslate"><span class="pre">-1</span></code> é retornado.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="complex.html"
+                          title="capítulo anterior">Objetos números complexos</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="bytearray.html"
+                          title="próximo capítulo">Objetos byte array</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/bytes.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="bytearray.html" title="Objetos byte array"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="complex.html" title="Objetos números complexos"
+             >anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos bytes</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

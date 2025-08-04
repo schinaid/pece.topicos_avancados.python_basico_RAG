@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Objetos de ponto flutuante" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/c-api/float.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="As funções Pack e Unpack: As funções de empacotamento e desempacotamento, pack e unpack respectivamente, fornecem uma maneira eficiente e independente de plataforma de armazenar valores de ponto fl..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_c-api_float_3f84ddee.png" />
+<meta property="og:image:alt" content="As funções Pack e Unpack: As funções de empacotamento e desempacotamento, pack e unpack respectivamente, fornecem uma maneira eficiente e independente de plataforma de armazenar valores de ponto fl..." />
+<meta name="description" content="As funções Pack e Unpack: As funções de empacotamento e desempacotamento, pack e unpack respectivamente, fornecem uma maneira eficiente e independente de plataforma de armazenar valores de ponto fl..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Objetos de ponto flutuante &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    <link rel="next" title="Objetos números complexos" href="complex.html" />
+    <link rel="prev" title="Objetos Booleanos" href="bool.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/c-api/float.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h3><a href="../contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Objetos de ponto flutuante</a><ul>
+<li><a class="reference internal" href="#pack-and-unpack-functions">As funções Pack e Unpack</a><ul>
+<li><a class="reference internal" href="#pack-functions">Funções Pack</a></li>
+<li><a class="reference internal" href="#unpack-functions">Funções de Unpack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="bool.html"
+                          title="capítulo anterior">Objetos Booleanos</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="complex.html"
+                          title="próximo capítulo">Objetos números complexos</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/float.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="complex.html" title="Objetos números complexos"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="bool.html" title="Objetos Booleanos"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos de ponto flutuante</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="floating-point-objects">
+<span id="floatobjects"></span><h1 class="translated">Objetos de ponto flutuante<a class="headerlink" href="#floating-point-objects" title="Link para este cabeçalho">¶</a></h1>
+<dl class="c type" id="index-0">
+<dt class="sig sig-object c" id="c.PyFloatObject">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloatObject</span></span></span><a class="headerlink" href="#c.PyFloatObject" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Este subtipo de <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> representa um objeto de ponto flutuante do Python.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyFloat_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Type</span></span></span><a class="headerlink" href="#c.PyFloat_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta instância do <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyTypeObject</span></code></a> representa o tipo de ponto flutuante do Python. Este é o mesmo objeto <a class="reference internal" href="../library/functions.html#float" title="float"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> na camada do Python.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Check">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Check" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna true se seu argumento é um <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a> ou um subtipo de <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a>. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna true se seu argumento é um <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a>, mas um subtipo de <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a>. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_FromString">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_FromString</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">str</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_FromString" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Cria um objeto <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a> baseado em uma string de valor “str” ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> em falha.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_FromDouble">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_FromDouble</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_FromDouble" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Cria um objeto <a class="reference internal" href="#c.PyFloatObject" title="PyFloatObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyFloatObject</span></code></a> de <em>v</em> ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> em falha.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_AsDouble">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_AsDouble</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pyfloat</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_AsDouble" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna uma representação C <span class="c-expr sig sig-inline c"><span class="kt">double</span></span> do conteúdo de <em>pyfloat</em>. Se <em>pyfloat</em> não é um objeto de ponto flutuante do Python, mas possui o método <a class="reference internal" href="../reference/datamodel.html#object.__float__" title="object.__float__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__float__()</span></code></a>, esse método será chamado primeiro para converter <em>pyfloat</em> em um ponto flutuante. Se <code class="xref py py-meth docutils literal notranslate"><span class="pre">__float__()</span></code> não estiver definido, será usado <code class="xref py py-meth docutils literal notranslate"><span class="pre">__index__()</span></code>. Este método retorna <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> em caso de falha, portanto, deve-se chamar <a class="reference internal" href="exceptions.html#c.PyErr_Occurred" title="PyErr_Occurred"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_Occurred()</span></code></a> para verificar se há erros.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.8: </span>Usa <a class="reference internal" href="../reference/datamodel.html#object.__index__" title="object.__index__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__index__()</span></code></a>, se disponível.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_AS_DOUBLE">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_AS_DOUBLE</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pyfloat</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_AS_DOUBLE" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna uma representação C <span class="c-expr sig sig-inline c"><span class="kt">double</span></span> do conteúdo de <em>pyfloat</em>, mas sem verificação de erro.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_GetInfo">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_GetInfo</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_GetInfo" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna uma instância de structseq que contém informações sobre a precisão, os valores mínimo e máximo de um ponto flutuante. É um invólucro fino em torno do arquivo de cabeçalho <code class="file docutils literal notranslate"><span class="pre">float.h</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_GetMax">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_GetMax</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_GetMax" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna o ponto flutuante finito máximo representável <em>DBL_MAX</em> como <span class="c-expr sig sig-inline c"><span class="kt">double</span></span> do C.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_GetMin">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_GetMin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_GetMin" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna o ponto flutuante positivo mínimo normalizado <em>DBL_MIN</em> como <span class="c-expr sig sig-inline c"><span class="kt">double</span></span> do C.</p>
+</dd></dl>
+
+<section id="pack-and-unpack-functions">
+<h2 class="translated">As funções Pack e Unpack<a class="headerlink" href="#pack-and-unpack-functions" title="Link para este cabeçalho">¶</a></h2>
+<p class="translated">As funções de empacotamento e desempacotamento, pack e unpack respectivamente, fornecem uma maneira eficiente e independente de plataforma de armazenar valores de ponto flutuante como strings de bytes. As rotinas de Pack produzem uma string de bytes a partir de um C <span class="c-expr sig sig-inline c"><span class="kt">double</span></span>, e as rotinas de Unpack produzem um C <span class="c-expr sig sig-inline c"><span class="kt">double</span></span> a partir dessa string de bytes. O sufixo (2, 4 ou 8) especifica o número de bytes na string de bytes.</p>
+<p class="translated">Em plataformas que parecem usar o formato IEEE 754, essas funções funcionam copiando bits. Em outras plataformas, o formato de 2 bytes é idêntico ao formato de meia precisão binário 16 do IEEE 754, o formato de 4 bytes (32 bits) é idêntico ao formato de precisão simples binário 32 do IEEE 754 e o formato de 8 bytes ao formato de precisão dupla binário 64 do IEEE 754, embora o empacotamento de INFs e NaNs (se tais recursos existirem na plataforma) não seja tratado corretamente, e tentar desempacotar uma string de bytes contendo um INF ou NaN do IEEE levantará uma exceção.</p>
+<p class="translated">Em plataformas que não aderem IEEE com maior precisão ou maior alcance dinâmico do que o suportado pelo IEEE 754, nem todos os valores podem ser empacotados; em plataformas que não aderem IEEE com menor precisão ou menor alcance dinâmico, nem todos os valores podem ser desempacotados. O que acontece nesses casos é em parte acidental (infelizmente).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Adicionado na versão 3.11.</span></p>
+</div>
+<section id="pack-functions">
+<h3 class="translated">Funções Pack<a class="headerlink" href="#pack-functions" title="Link para este cabeçalho">¶</a></h3>
+<p class="translated">As rotinas de empacotamento gravam 2, 4 ou 8 bytes, começando em <em>p</em>. <em>le</em> é um argumento <span class="c-expr sig sig-inline c"><span class="kt">int</span></span>, diferente de zero se você quiser a sequência de bytes no formato little-endian (expoente por último, em <code class="docutils literal notranslate"><span class="pre">p+1</span></code>, <code class="docutils literal notranslate"><span class="pre">p+3</span></code> ou <code class="docutils literal notranslate"><span class="pre">p+6</span></code> <code class="docutils literal notranslate"><span class="pre">p+7</span></code>), zero se você quiser o formato big-endian (expoente primeiro, em <em>p</em>). A constante <code class="xref c c-macro docutils literal notranslate"><span class="pre">PY_BIG_ENDIAN</span></code> pode ser usada para usar o endian nativo: é igual a <code class="docutils literal notranslate"><span class="pre">1</span></code> em processadores big-endian ou <code class="docutils literal notranslate"><span class="pre">0</span></code> em processadores little-endian.</p>
+<p class="translated">Valor de retorno: <code class="docutils literal notranslate"><span class="pre">0</span></code> se tudo estiver OK, <code class="docutils literal notranslate"><span class="pre">-1</span></code> se houver erro (e uma exceção for definida, provavelmente <a class="reference internal" href="../library/exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a>).</p>
+<p class="translated">Existem dois problemas em plataformas não IEEE:</p>
+<ul class="simple">
+<li><p class="translated">O que isso faz é indefinido se <em>x</em> é um NaN ou infinito.</p></li>
+<li><p class="translated"><code class="docutils literal notranslate"><span class="pre">-0.0</span></code> e <code class="docutils literal notranslate"><span class="pre">+0.0</span></code> produzem a mesma sequência de bytes.</p></li>
+</ul>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Pack2">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Pack2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Pack2" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Pack a C double as the IEEE 754 binary16 half-precision format.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Pack4">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Pack4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Pack4" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Pack a C double as the IEEE 754 binary32 single precision format.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Pack8">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Pack8</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Pack8" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Pack a C double as the IEEE 754 binary64 double precision format.</p>
+</dd></dl>
+
+</section>
+<section id="unpack-functions">
+<h3 class="translated">Funções de Unpack<a class="headerlink" href="#unpack-functions" title="Link para este cabeçalho">¶</a></h3>
+<p class="translated">As rotinas de desempacotamento leem 2, 4 ou 8 bytes, começando em <em>p</em>. <em>le</em> é um argumento <span class="c-expr sig sig-inline c"><span class="kt">int</span></span>, diferente de zero se a sequência de bytes estiver no formato little-endian (expoente por último, em <code class="docutils literal notranslate"><span class="pre">p+1</span></code>, <code class="docutils literal notranslate"><span class="pre">p+3</span></code> ou <code class="docutils literal notranslate"><span class="pre">p+6</span></code> e <code class="docutils literal notranslate"><span class="pre">p+7</span></code>), zero se big-endian (expoente primeiro, em <em>p</em>). A constante <code class="xref c c-macro docutils literal notranslate"><span class="pre">PY_BIG_ENDIAN</span></code> pode ser usada para usar o endian nativo: é igual a <code class="docutils literal notranslate"><span class="pre">1</span></code> em processadores big-endian ou <code class="docutils literal notranslate"><span class="pre">0</span></code> em processadores little-endian.</p>
+<p class="translated">Valor de retorno: O double descompactado. Em caso de erro, é <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> e <a class="reference internal" href="exceptions.html#c.PyErr_Occurred" title="PyErr_Occurred"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_Occurred()</span></code></a> é verdadeiro (e uma exceção é definida, provavelmente <a class="reference internal" href="../library/exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a>).</p>
+<p class="translated">Observe que em uma plataforma que não adere IEEE isso se recusará a descompactar uma sequência de bytes que representa um NaN ou infinito.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Unpack2">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Unpack2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Unpack2" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Unpack the IEEE 754 binary16 half-precision format as a C double.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Unpack4">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Unpack4</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Unpack4" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Unpack the IEEE 754 binary32 single precision format as a C double.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyFloat_Unpack8">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyFloat_Unpack8</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFloat_Unpack8" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="untranslated">Unpack the IEEE 754 binary64 double precision format as a C double.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Objetos de ponto flutuante</a><ul>
+<li><a class="reference internal" href="#pack-and-unpack-functions">As funções Pack e Unpack</a><ul>
+<li><a class="reference internal" href="#pack-functions">Funções Pack</a></li>
+<li><a class="reference internal" href="#unpack-functions">Funções de Unpack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="bool.html"
+                          title="capítulo anterior">Objetos Booleanos</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="complex.html"
+                          title="próximo capítulo">Objetos números complexos</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/float.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="complex.html" title="Objetos números complexos"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="bool.html" title="Objetos Booleanos"
+             >anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos de ponto flutuante</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

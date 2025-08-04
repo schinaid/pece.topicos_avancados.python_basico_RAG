@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Objetos de variáveis de contexto" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/c-api/contextvars.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="Esta seção detalha a API C pública para o módulo contextvars. Macros de verificação de tipo: Funções de gerenciamento de objetos de contexto: Funções de variável de contexto:" />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_c-api_contextvars_ac0409a4.png" />
+<meta property="og:image:alt" content="Esta seção detalha a API C pública para o módulo contextvars. Macros de verificação de tipo: Funções de gerenciamento de objetos de contexto: Funções de variável de contexto:" />
+<meta name="description" content="Esta seção detalha a API C pública para o módulo contextvars. Macros de verificação de tipo: Funções de gerenciamento de objetos de contexto: Funções de variável de contexto:" />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Objetos de variáveis de contexto &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    <link rel="next" title="Objetos DateTime" href="datetime.html" />
+    <link rel="prev" title="Objetos corrotina" href="coro.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/c-api/contextvars.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="coro.html"
+                          title="capítulo anterior">Objetos corrotina</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="datetime.html"
+                          title="próximo capítulo">Objetos DateTime</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/contextvars.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="datetime.html" title="Objetos DateTime"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="coro.html" title="Objetos corrotina"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos de variáveis de contexto</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="context-variables-objects">
+<span id="contextvarsobjects"></span><h1 class="translated">Objetos de variáveis de contexto<a class="headerlink" href="#context-variables-objects" title="Link para este cabeçalho">¶</a></h1>
+<div class="versionadded" id="contextvarsobjects-pointertype-change">
+<p><span class="versionmodified added">Adicionado na versão 3.7.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.7.1: </span></p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p class="translated">No Python 3.7.1, as assinaturas de todas as APIs C de variáveis de contexto foram <strong>alteradas</strong> para usar ponteiros <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> em vez de <a class="reference internal" href="#c.PyContext" title="PyContext"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyContext</span></code></a>, <a class="reference internal" href="#c.PyContextVar" title="PyContextVar"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyContextVar</span></code></a> e <a class="reference internal" href="#c.PyContextToken" title="PyContextToken"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyContextToken</span></code></a>. Por exemplo:</p>
+<div class="translated highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// no 3.7.0:</span>
+<span class="n">PyContext</span><span class="w"> </span><span class="o">*</span><span class="nf">PyContext_New</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="c1">// no 3.7.1+:</span>
+<span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="nf">PyContext_New</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p class="translated">Veja <a class="reference external" href="https://bugs.python.org/issue?&#64;action=redirect&amp;bpo=34762">bpo-34762</a> para mais detalhes.</p>
+</div>
+</div>
+<p class="translated">Esta seção detalha a API C pública para o módulo <a class="reference internal" href="../library/contextvars.html#module-contextvars" title="contextvars: Context Variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">contextvars</span></code></a>.</p>
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyContext">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContext</span></span></span><a class="headerlink" href="#c.PyContext" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">A estrutura C usada para representar um objeto <a class="reference internal" href="../library/contextvars.html#contextvars.Context" title="contextvars.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">contextvars.Context</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyContextVar">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar</span></span></span><a class="headerlink" href="#c.PyContextVar" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">A estrutura C usada para representar um objeto <a class="reference internal" href="../library/contextvars.html#contextvars.ContextVar" title="contextvars.ContextVar"><code class="xref py py-class docutils literal notranslate"><span class="pre">contextvars.ContextVar</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyContextToken">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextToken</span></span></span><a class="headerlink" href="#c.PyContextToken" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">A estrutura C usada para representar um objeto <a class="reference internal" href="../library/contextvars.html#contextvars.Token" title="contextvars.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">contextvars.Token</span></code></a></p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyContext_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_Type</span></span></span><a class="headerlink" href="#c.PyContext_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">O objeto de tipo que representa o tipo de <em>contexto</em>.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyContextVar_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_Type</span></span></span><a class="headerlink" href="#c.PyContextVar_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">O objeto de tipo que representa o tipo de <em>variável de contexto</em>.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyContextToken_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextToken_Type</span></span></span><a class="headerlink" href="#c.PyContextToken_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">O objeto de tipo que representa o tipo de <em>token de variável de contexto</em>.</p>
+</dd></dl>
+
+<p class="translated">Macros de verificação de tipo:</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se <em>o</em> for do tipo <a class="reference internal" href="#c.PyContext_Type" title="PyContext_Type"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyContext_Type</span></code></a>. <em>o</em> não deve ser <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextVar_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextVar_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se <em>o</em> for do tipo <a class="reference internal" href="#c.PyContextVar_Type" title="PyContextVar_Type"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyContextVar_Type</span></code></a>. <em>o</em> não deve ser <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextToken_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextToken_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextToken_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se <em>o</em> for do tipo <a class="reference internal" href="#c.PyContextToken_Type" title="PyContextToken_Type"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyContextToken_Type</span></code></a>. <em>o</em> não deve ser <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<p class="translated">Funções de gerenciamento de objetos de contexto:</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_New</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_New" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Cria um novo objeto de contexto vazio. Retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se um erro ocorreu.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_Copy">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_Copy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_Copy" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Cria uma cópia rasa do objeto de contexto <em>ctx</em> passado. Retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se um erro ocorreu.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_CopyCurrent">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_CopyCurrent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_CopyCurrent" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Cria uma cópia rasa do contexto da thread atual. Retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se um erro ocorreu.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_Enter">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_Enter</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_Enter" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Defina <em>ctx</em> como o contexto atual para o thread atual. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">-1</span></code> em caso de erro.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContext_Exit">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContext_Exit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContext_Exit" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Desativa  o contexto <em>ctx</em> e restaura o contexto anterior como o contexto atual para a thread atual. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">-1</span></code> em caso de erro.</p>
+</dd></dl>
+
+<p class="translated">Funções de variável de contexto:</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextVar_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_New</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">def</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextVar_New" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Cria um novo objeto <code class="docutils literal notranslate"><span class="pre">ContextVar</span></code>. O parâmetro <em>name</em> é usado para fins de introspecção e depuração. O parâmetro <em>def</em> especifica um valor padrão para a variável de contexto, ou  <code class="docutils literal notranslate"><span class="pre">NULL</span></code> para nenhum padrão. Se ocorrer um erro, esta função retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextVar_Get">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_Get</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">var</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">default_value</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextVar_Get" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Obtém o valor de uma variável de contexto. Retorna <code class="docutils literal notranslate"><span class="pre">-1</span></code> se um erro ocorreu durante a pesquisa, e <code class="docutils literal notranslate"><span class="pre">0</span></code> se nenhum erro ocorreu, se um valor foi encontrado ou não.</p>
+<p class="translated">Se a variável de contexto foi encontrada, <em>value</em> será um ponteiro para ela. Se a variável de contexto <em>não</em> foi encontrada, <em>value</em> apontará para:</p>
+<ul class="simple">
+<li><p class="translated"><em>default_value</em>, se não for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>;</p></li>
+<li><p class="translated">o valor padrão de <em>var</em>, se não for <code class="docutils literal notranslate"><span class="pre">NULL</span></code>;</p></li>
+<li><p class="translated"><code class="docutils literal notranslate"><span class="pre">NULL</span></code></p></li>
+</ul>
+<p class="translated">Exceto para <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, a função retorna uma nova referência.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextVar_Set">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_Set</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">var</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextVar_Set" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><p class="translated">Define o valor de <em>var</em> como <em>value</em> no contexto atual. Retorna um novo objeto token para esta alteração, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> se um erro ocorreu.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyContextVar_Reset">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyContextVar_Reset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">var</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">token</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyContextVar_Reset" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Redefine o estado da variável de contexto <em>var</em> para o estado que anterior a <a class="reference internal" href="#c.PyContextVar_Set" title="PyContextVar_Set"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyContextVar_Set()</span></code></a> que retornou o <em>token</em> foi chamado. Esta função retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">-1</span></code> em caso de erro.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="coro.html"
+                          title="capítulo anterior">Objetos corrotina</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="datetime.html"
+                          title="próximo capítulo">Objetos DateTime</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/contextvars.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="datetime.html" title="Objetos DateTime"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="coro.html" title="Objetos corrotina"
+             >anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objetos de variáveis de contexto</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

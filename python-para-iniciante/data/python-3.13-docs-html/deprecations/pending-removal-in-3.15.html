@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Remoção pendente no Python 3.15" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/deprecations/pending-removal-in-3.15.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="O sistema de importação:- A definição de__cached__ em um módulo enquanto falha na definição de__spec__.cached está descontinuado. No Python 3.15,__cached__ deixará de ser definido ou levado em cons..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_deprecations_pending-removal-in-3.15_41a16589.png" />
+<meta property="og:image:alt" content="O sistema de importação:- A definição de__cached__ em um módulo enquanto falha na definição de__spec__.cached está descontinuado. No Python 3.15,__cached__ deixará de ser definido ou levado em cons..." />
+<meta name="description" content="O sistema de importação:- A definição de__cached__ em um módulo enquanto falha na definição de__spec__.cached está descontinuado. No Python 3.15,__cached__ deixará de ser definido ou levado em cons..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Remoção pendente no Python 3.15 &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/deprecations/pending-removal-in-3.15.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/deprecations/pending-removal-in-3.15.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+        <li class="nav-item nav-item-this"><a href="">Remoção pendente no Python 3.15</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pending-removal-in-python-3-15">
+<h1 class="translated">Remoção pendente no Python 3.15<a class="headerlink" href="#pending-removal-in-python-3-15" title="Link para este cabeçalho">¶</a></h1>
+<ul class="simple">
+<li><p class="translated">O sistema de importação:</p>
+<ul>
+<li><p class="translated">A definição de <a class="reference internal" href="../reference/datamodel.html#module.__cached__" title="module.__cached__"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__cached__</span></code></a> em um módulo enquanto falha na definição de <a class="reference internal" href="../library/importlib.html#importlib.machinery.ModuleSpec.cached" title="importlib.machinery.ModuleSpec.cached"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__spec__.cached</span></code></a> está descontinuado. No Python 3.15, <code class="xref py py-attr docutils literal notranslate"><span class="pre">__cached__</span></code> deixará de ser definido ou levado em consideração pelo sistema de importação ou pela biblioteca padrão. (<a class="reference external" href="https://github.com/python/cpython/issues/97879">gh-97879</a>)</p></li>
+<li><p class="translated">A definição de <a class="reference internal" href="../reference/datamodel.html#module.__package__" title="module.__package__"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__package__</span></code></a> em um módulo enquanto falha na definição de <a class="reference internal" href="../library/importlib.html#importlib.machinery.ModuleSpec.parent" title="importlib.machinery.ModuleSpec.parent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__spec__.parent</span></code></a> está descontinuado. No Python 3.15, <code class="xref py py-attr docutils literal notranslate"><span class="pre">__package__</span></code> deixará de ser definido ou levado em consideração pelo sistema de importação ou pela biblioteca padrão. (<a class="reference external" href="https://github.com/python/cpython/issues/97879">gh-97879</a>)</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/ctypes.html#module-ctypes" title="ctypes: A foreign function library for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a>:</p>
+<ul>
+<li><p class="translated">A função não documentada <code class="xref py py-func docutils literal notranslate"><span class="pre">ctypes.SetPointerType()</span></code> foi descontinuada desde o Python 3.13.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/http.server.html#module-http.server" title="http.server: HTTP server and request handlers."><code class="xref py py-mod docutils literal notranslate"><span class="pre">http.server</span></code></a>:</p>
+<ul>
+<li><p class="translated">A classe obsoleta e raramente usada <a class="reference internal" href="../library/http.server.html#http.server.CGIHTTPRequestHandler" title="http.server.CGIHTTPRequestHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHTTPRequestHandler</span></code></a> foi descontinuada desde o Python 3.13. Não existe substituição direta. <em>Qualquer coisa</em> é melhor que CGI para fazer a interface de um servidor web com um manipulador de requisição.</p></li>
+<li><p class="translated">O sinalizador <code class="xref std std-option docutils literal notranslate"><span class="pre">--cgi</span></code> para a interface de linha de comando <strong class="program">python -m http.server</strong> foi descontinuado desde o Python 3.13.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/importlib.html#module-importlib" title="importlib: The implementation of the import machinery."><code class="xref py py-mod docutils literal notranslate"><span class="pre">importlib</span></code></a>:</p>
+<ul>
+<li><p class="translated">Método <code class="docutils literal notranslate"><span class="pre">load_module()</span></code>: use <code class="docutils literal notranslate"><span class="pre">exec_module()</span></code>.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/locale.html#module-locale" title="locale: Internationalization services."><code class="xref py py-class docutils literal notranslate"><span class="pre">locale</span></code></a>:</p>
+<ul>
+<li><p class="translated">A função <a class="reference internal" href="../library/locale.html#locale.getdefaultlocale" title="locale.getdefaultlocale"><code class="xref py py-func docutils literal notranslate"><span class="pre">getdefaultlocale()</span></code></a> foi descontinuada desde o Python 3.11. Sua remoção foi planejada originalmente para o Python 3.13 (<a class="reference external" href="https://github.com/python/cpython/issues/90817">gh-90817</a>), mas foi adiada para o Python 3.15. Em vez disso, use <a class="reference internal" href="../library/locale.html#locale.getlocale" title="locale.getlocale"><code class="xref py py-func docutils literal notranslate"><span class="pre">getlocale()</span></code></a>, <a class="reference internal" href="../library/locale.html#locale.setlocale" title="locale.setlocale"><code class="xref py py-func docutils literal notranslate"><span class="pre">setlocale()</span></code></a> e <a class="reference internal" href="../library/locale.html#locale.getencoding" title="locale.getencoding"><code class="xref py py-func docutils literal notranslate"><span class="pre">getencoding()</span></code></a>. (Contribuição de Hugo van Kemenade em <a class="reference external" href="https://github.com/python/cpython/issues/111187">gh-111187</a>.)</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/pathlib.html#module-pathlib" title="pathlib: Object-oriented filesystem paths"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pathlib</span></code></a>:</p>
+<ul>
+<li><p class="translated"><a class="reference internal" href="../library/pathlib.html#pathlib.PurePath.is_reserved" title="pathlib.PurePath.is_reserved"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PurePath.is_reserved()</span></code></a> foi descontinuado desde o Python 3.13. Use <a class="reference internal" href="../library/os.path.html#os.path.isreserved" title="os.path.isreserved"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.path.isreserved()</span></code></a> para detectar caminhos reservados no Windows.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/platform.html#module-platform" title="platform: Retrieves as much platform identifying data as possible."><code class="xref py py-mod docutils literal notranslate"><span class="pre">platform</span></code></a>:</p>
+<ul>
+<li><p class="translated"><a class="reference internal" href="../library/platform.html#platform.java_ver" title="platform.java_ver"><code class="xref py py-func docutils literal notranslate"><span class="pre">java_ver()</span></code></a> foi descontinuada desde o Python 3.13. Esta função é útil apenas para suporte Jython, tem uma API confusa e é amplamente não testada.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/sysconfig.html#module-sysconfig" title="sysconfig: Python's configuration information"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sysconfig</span></code></a>:</p>
+<ul>
+<li><p class="translated">O argumento <em>check_home</em> de <a class="reference internal" href="../library/sysconfig.html#sysconfig.is_python_build" title="sysconfig.is_python_build"><code class="xref py py-func docutils literal notranslate"><span class="pre">sysconfig.is_python_build()</span></code></a> foi descontinuado desde o Python 3.12.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/threading.html#module-threading" title="threading: Thread-based parallelism."><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>:</p>
+<ul>
+<li><p class="translated"><a class="reference internal" href="../library/threading.html#threading.RLock" title="threading.RLock"><code class="xref py py-func docutils literal notranslate"><span class="pre">RLock()</span></code></a> não aceitará argumentos no Python 3.15. A passagem quaisquer argumentos foi descontinuada desde o Python 3.14, pois a versão Python não permite nenhum argumento, mas a versão C permite qualquer número de argumentos posicionais ou nomeados, ignorando todos os argumentos.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/types.html#module-types" title="types: Names for built-in types."><code class="xref py py-mod docutils literal notranslate"><span class="pre">types</span></code></a>:</p>
+<ul>
+<li><p class="translated"><a class="reference internal" href="../library/types.html#types.CodeType" title="types.CodeType"><code class="xref py py-class docutils literal notranslate"><span class="pre">types.CodeType</span></code></a>: o acesso a <a class="reference internal" href="../reference/datamodel.html#codeobject.co_lnotab" title="codeobject.co_lnotab"><code class="xref py py-attr docutils literal notranslate"><span class="pre">co_lnotab</span></code></a> foi descontinuado na <span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0626/"><strong>PEP 626</strong></a> desde 3.10 e foi planejado para ser removido em 3.12, mas só recebeu uma <a class="reference internal" href="../library/exceptions.html#DeprecationWarning" title="DeprecationWarning"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a> adequada em 3.12. Pode ser removido em 3.15. (Contribuição de Nikita Sobolev em <a class="reference external" href="https://github.com/python/cpython/issues/101866">gh-101866</a>.)</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/typing.html#module-typing" title="typing: Support for type hints (see :pep:`484`)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">typing</span></code></a>:</p>
+<ul>
+<li><p class="translated">A sintaxe de argumento nomeado não documentada para criar classes <a class="reference internal" href="../library/typing.html#typing.NamedTuple" title="typing.NamedTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></a> (por exemplo, <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">=</span> <span class="pre">NamedTuple(&quot;Point&quot;,</span> <span class="pre">x=int,</span> <span class="pre">y=int)</span></code>) foi descontinuada desde o Python 3.13. Use a sintaxe baseada em classe ou a sintaxe funcional em vez disso.</p></li>
+<li><p class="translated">Ao usar a sintaxe funcional de <a class="reference internal" href="../library/typing.html#typing.TypedDict" title="typing.TypedDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></a>s, não passar um valor para o parâmetro <em>fields</em> (<code class="docutils literal notranslate"><span class="pre">TD</span> <span class="pre">=</span> <span class="pre">TypedDict(&quot;TD&quot;)</span></code>) ou passar <code class="docutils literal notranslate"><span class="pre">None</span></code> (<code class="docutils literal notranslate"><span class="pre">TD</span> <span class="pre">=</span> <span class="pre">TypedDict(&quot;TD&quot;,</span> <span class="pre">None)</span></code>) foi está descontinuado desde o Python 3.13. Use <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">TD(TypedDict):</span> <span class="pre">pass</span></code> ou <code class="docutils literal notranslate"><span class="pre">TD</span> <span class="pre">=</span> <span class="pre">TypedDict(&quot;TD&quot;,</span> <span class="pre">{})</span></code> para criar uma classe TypedDict com nenhum campo.</p></li>
+<li><p class="translated">A função decoradora <a class="reference internal" href="../library/typing.html#typing.no_type_check_decorator" title="typing.no_type_check_decorator"><code class="xref py py-func docutils literal notranslate"><span class="pre">typing.no_type_check_decorator()</span></code></a> foi descontinuada desde o Python 3.13. Após oito anos no módulo <a class="reference internal" href="../library/typing.html#module-typing" title="typing: Support for type hints (see :pep:`484`)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">typing</span></code></a>, ela ainda não foi suportada por nenhum verificador de tipo importante.</p></li>
+</ul>
+</li>
+<li><p class="translated"><a class="reference internal" href="../library/wave.html#module-wave" title="wave: Provide an interface to the WAV sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wave</span></code></a>:</p>
+<ul>
+<li><p class="translated">Os métodos <a class="reference internal" href="../library/wave.html#wave.Wave_read.getmark" title="wave.Wave_read.getmark"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getmark()</span></code></a>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">setmark()</span></code> e <a class="reference internal" href="../library/wave.html#wave.Wave_read.getmarkers" title="wave.Wave_read.getmarkers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getmarkers()</span></code></a> das classes <a class="reference internal" href="../library/wave.html#wave.Wave_read" title="wave.Wave_read"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wave_read</span></code></a> e <a class="reference internal" href="../library/wave.html#wave.Wave_write" title="wave.Wave_write"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wave_write</span></code></a> foram descontinuados desde o Python 3.13.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/deprecations/pending-removal-in-3.15.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+        <li class="nav-item nav-item-this"><a href="">Remoção pendente no Python 3.15</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

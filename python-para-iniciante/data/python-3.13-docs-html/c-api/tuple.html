@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Objeto tupla" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/c-api/tuple.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="Objetos sequência de estrutura: Objetos sequência de estrutura são o equivalente em C dos objetos namedtuple(), ou seja, uma sequência cujos itens também podem ser acessados por meio de atributos. ..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_c-api_tuple_1a34fdee.png" />
+<meta property="og:image:alt" content="Objetos sequência de estrutura: Objetos sequência de estrutura são o equivalente em C dos objetos namedtuple(), ou seja, uma sequência cujos itens também podem ser acessados por meio de atributos. ..." />
+<meta name="description" content="Objetos sequência de estrutura: Objetos sequência de estrutura são o equivalente em C dos objetos namedtuple(), ou seja, uma sequência cujos itens também podem ser acessados por meio de atributos. ..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Objeto tupla &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=71a39b36"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="../about.html" />
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Buscar" href="../search.html" />
+    <link rel="copyright" title="Direitos autorais" href="../copyright.html" />
+    <link rel="next" title="Objeto List" href="list.html" />
+    <link rel="prev" title="Objetos Unicode e Codecs" href="unicode.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/c-api/tuple.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="../_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h3><a href="../contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Objeto tupla</a></li>
+<li><a class="reference internal" href="#struct-sequence-objects">Objetos sequência de estrutura</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="unicode.html"
+                          title="capítulo anterior">Objetos Unicode e Codecs</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="list.html"
+                          title="próximo capítulo">Objeto List</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/tuple.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="list.html" title="Objeto List"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="unicode.html" title="Objetos Unicode e Codecs"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objeto tupla</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="tuple-objects">
+<span id="tupleobjects"></span><h1 class="translated">Objeto tupla<a class="headerlink" href="#tuple-objects" title="Link para este cabeçalho">¶</a></h1>
+<dl class="c type" id="index-0">
+<dt class="sig sig-object c" id="c.PyTupleObject">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTupleObject</span></span></span><a class="headerlink" href="#c.PyTupleObject" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Este subtipo de <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> representa um objeto tupla em Python.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyTuple_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_Type</span></span></span><a class="headerlink" href="#c.PyTuple_Type" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Esta instância de <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyTypeObject</span></code></a> representa o tipo tupla de Python; é o mesmo objeto que <a class="reference internal" href="../library/stdtypes.html#tuple" title="tuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> na camada Python.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_Check">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Check" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se <em>p</em> é um objeto tupla ou uma instância de um subtipo do tipo tupla. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_CheckExact">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_CheckExact</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_CheckExact" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Retorna verdadeiro se <em>p</em> é um objeto tupla, mas não uma instância de um subtipo do tipo tupla. Esta função sempre tem sucesso.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_New</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_New" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna um novo objeto tupla de tamanho <em>len</em>, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com uma exceção definida em caso de falha.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_Pack">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_Pack</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Pack" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna um novo objeto tupla de tamanho <em>n</em>, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com uma exceção em caso de falha. Os valores da tupla são inicializados para os <em>n</em> argumentos C subsequentes apontando para objetos Python. <code class="docutils literal notranslate"><span class="pre">`PyTuple_Pack(2,</span> <span class="pre">a,</span> <span class="pre">b)</span></code> é equivalente a <code class="docutils literal notranslate"><span class="pre">Py_BuildValue(&quot;(OO)&quot;,</span> <span class="pre">a,</span> <span class="pre">b)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_Size">
+<a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_Size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Size" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Pega um ponteiro para um objeto tupla e retorna o tamanho dessa tupla. No erro, retorna <code class="docutils literal notranslate"><span class="pre">-1</span></code> e com uma exceção definida.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_GET_SIZE">
+<a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_GET_SIZE</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GET_SIZE" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Como <a class="reference internal" href="#c.PyTuple_Size" title="PyTuple_Size"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_Size()</span></code></a>, mas sem verificação de erro.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_GetItem">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_GetItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GetItem" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_borrowed_ref">Retorna valor: Referência emprestada.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna o objeto na posição <em>pos</em> na tupla apontada por <em>p</em>. Se <em>pos</em> estiver fora dos limites, retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> e define uma exceção <a class="reference internal" href="../library/exceptions.html#IndexError" title="IndexError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a>.</p>
+<p class="translated">A referência retornada é emprestada da tupla <em>p</em> (ou seja: ela só é válida enquanto você mantém uma referência a <em>p</em>). Para obter uma <a class="reference internal" href="../glossary.html#term-strong-reference"><span class="xref std std-term">referência forte</span></a>, use <a class="reference internal" href="refcounting.html#c.Py_NewRef" title="Py_NewRef"><code class="xref c c-func docutils literal notranslate"><span class="pre">Py_NewRef(PyTuple_GetItem(...))</span></code></a> ou <a class="reference internal" href="sequence.html#c.PySequence_GetItem" title="PySequence_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PySequence_GetItem()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_GET_ITEM">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_GET_ITEM</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GET_ITEM" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_borrowed_ref">Retorna valor: Referência emprestada.</em><p class="translated">Como <a class="reference internal" href="#c.PyTuple_GetItem" title="PyTuple_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_GetItem()</span></code></a>, mas faz nenhuma verificação de seus argumentos.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_GetSlice">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_GetSlice</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">low</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">high</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GetSlice" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna a fatia da tupla apontada por <em>p</em> entre <em>low</em> e <em>high</em>, ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com uma exceção definida em caso de falha.</p>
+<p class="translated">Isso é o equivalente da expressão Python <code class="docutils literal notranslate"><span class="pre">p[low:high]</span></code>. A indexação do final da tupla não é suportada.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_SetItem">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_SetItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_SetItem" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Insere uma referência ao objeto <em>o</em> na posição <em>pos</em> da tupla apontada por <em>p</em>. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso. Se <em>pos</em> estiver fora dos limites, retorne <code class="docutils literal notranslate"><span class="pre">-1</span></code> e define uma exceção <a class="reference internal" href="../library/exceptions.html#IndexError" title="IndexError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p class="translated">Esta função “rouba” uma referência a <em>o</em> e descarta uma referência a um item já na tupla na posição afetada.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyTuple_SET_ITEM">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyTuple_SET_ITEM</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_SET_ITEM" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Como <a class="reference internal" href="#c.PyTuple_SetItem" title="PyTuple_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SetItem()</span></code></a>, mas não verifica erros e deve <em>apenas</em> ser usado para preencher novas tuplas.</p>
+<p class="translated">A verificação de limites é realizada como uma asserção se o Python for construído em <a class="reference internal" href="../using/configure.html#debug-build"><span class="std std-ref">modo de depuração</span></a> ou <a class="reference internal" href="../using/configure.html#cmdoption-with-assertions"><code class="xref std std-option docutils literal notranslate"><span class="pre">com</span> <span class="pre">asserções</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p class="translated">Esta função “rouba” uma referência para <em>o</em> e, ao contrário de <a class="reference internal" href="#c.PyTuple_SetItem" title="PyTuple_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SetItem()</span></code></a>, <em>não</em> descarta uma referência para nenhum item que esteja sendo substituído; qualquer referência na tupla na posição <em>pos</em> será perdida.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c._PyTuple_Resize">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_PyTuple_Resize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">newsize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c._PyTuple_Resize" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Pode ser usado para redimensionar uma tupla. <em>newsize</em> será o novo comprimento da tupla. Como as tuplas são <em>supostamente</em> imutáveis, isso só deve ser usado se houver apenas uma referência ao objeto. <em>Não</em> use isto se a tupla já for conhecida por alguma outra parte do código. A tupla sempre aumentará ou diminuirá no final. Pense nisso como destruir a tupla antiga e criar uma nova, mas com mais eficiência. Retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso. O código do cliente nunca deve presumir que o valor resultante de <code class="docutils literal notranslate"><span class="pre">*p</span></code> será o mesmo de antes de chamar esta função. Se o objeto referenciado por <code class="docutils literal notranslate"><span class="pre">*p</span></code> for substituído, o <code class="docutils literal notranslate"><span class="pre">*p</span></code> original será destruído. Em caso de falha, retorna <code class="docutils literal notranslate"><span class="pre">-1</span></code> e define <code class="docutils literal notranslate"><span class="pre">*p</span></code> para <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, e levanta <a class="reference internal" href="../library/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> ou <a class="reference internal" href="../library/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a>.</p>
+</dd></dl>
+
+</section>
+<section id="struct-sequence-objects">
+<span id="id1"></span><h1 class="translated">Objetos sequência de estrutura<a class="headerlink" href="#struct-sequence-objects" title="Link para este cabeçalho">¶</a></h1>
+<p class="translated">Objetos sequência de estrutura são o equivalente em C dos objetos <code class="xref py py-func docutils literal notranslate"><span class="pre">namedtuple()</span></code>, ou seja, uma sequência cujos itens também podem ser acessados por meio de atributos. Para criar uma sequência de estrutura, você primeiro precisa criar um tipo de sequência de estrutura específico.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_NewType">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_NewType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc"><span class="n"><span class="pre">PyStructSequence_Desc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_NewType" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Cria um novo tipo de sequência de estrutura a partir dos dados em <em>desc</em>, descrito abaixo. Instâncias do tipo resultante podem ser criadas com <a class="reference internal" href="#c.PyStructSequence_New" title="PyStructSequence_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_New()</span></code></a>.</p>
+<p class="translated">Retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com uma exceção definida em caso de falha.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_InitType">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_InitType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">type</span></span>, <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc"><span class="n"><span class="pre">PyStructSequence_Desc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_InitType" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Inicializa um tipo de sequência de estrutura <em>type</em> de <em>desc</em> no lugar.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_InitType2">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_InitType2</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">type</span></span>, <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc"><span class="n"><span class="pre">PyStructSequence_Desc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_InitType2" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Como <a class="reference internal" href="#c.PyStructSequence_InitType" title="PyStructSequence_InitType"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_InitType()</span></code></a>, mas retorna <code class="docutils literal notranslate"><span class="pre">0</span></code> em caso de sucesso e <code class="docutils literal notranslate"><span class="pre">-1</span></code> com uma exceção definida em caso de falha.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Adicionado na versão 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyStructSequence_Desc">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_Desc</span></span></span><a class="headerlink" href="#c.PyStructSequence_Desc" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a> (incluindo todos os membros).</em><p class="translated">Contém as metainformações de um tipo de sequência de estrutura a ser criado.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Desc.name">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><a class="headerlink" href="#c.PyStructSequence_Desc.name" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Nome totalmente qualificado do tipo; codificado em UTF-8 terminado em nulo. O nome deve conter o nome do módulo.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Desc.doc">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">doc</span></span></span><a class="headerlink" href="#c.PyStructSequence_Desc.doc" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Ponteiro para docstring para o tipo ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> para omitir</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Desc.fields">
+<a class="reference internal" href="#c.PyStructSequence_Field" title="PyStructSequence_Field"><span class="n"><span class="pre">PyStructSequence_Field</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fields</span></span></span><a class="headerlink" href="#c.PyStructSequence_Desc.fields" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Ponteiro para um vetor terminado em <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com nomes de campos do novo tipo</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Desc.n_in_sequence">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_in_sequence</span></span></span><a class="headerlink" href="#c.PyStructSequence_Desc.n_in_sequence" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Número de campos visíveis para o lado Python (se usado como tupla)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyStructSequence_Field">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_Field</span></span></span><a class="headerlink" href="#c.PyStructSequence_Field" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a> (incluindo todos os membros).</em><p class="translated">Descreve um campo de uma sequência de estrutura. Como uma sequência de estrutura é modelada como uma tupla, todos os campos são digitados como <span class="c-expr sig sig-inline c"><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n">PyObject</span></a><span class="p">*</span></span>. O índice no vetor <a class="reference internal" href="#c.PyStructSequence_Desc.fields" title="PyStructSequence_Desc.fields"><code class="xref c c-member docutils literal notranslate"><span class="pre">fields</span></code></a> do <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyStructSequence_Desc</span></code></a> determina qual campo da sequência de estrutura é descrito.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Field.name">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><a class="headerlink" href="#c.PyStructSequence_Field.name" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Nome do campo ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> para terminar a lista de campos nomeados; definida para <a class="reference internal" href="#c.PyStructSequence_UnnamedField" title="PyStructSequence_UnnamedField"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyStructSequence_UnnamedField</span></code></a> para deixar sem nome.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.PyStructSequence_Field.doc">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">doc</span></span></span><a class="headerlink" href="#c.PyStructSequence_Field.doc" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Campo docstring ou <code class="docutils literal notranslate"><span class="pre">NULL</span></code> para omitir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c var">
+<dt class="sig sig-object c" id="c.PyStructSequence_UnnamedField">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_UnnamedField</span></span></span><a class="headerlink" href="#c.PyStructSequence_UnnamedField" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a> desde a versão 3.11.</em><p class="translated">Valor especial para um nome de campo para deixá-lo sem nome.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.9: </span>O tipo foi alterado de <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_New</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><span class="n"><span class="pre">PyTypeObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_New" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_new_ref">Retorna valor: Nova referência.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Cria um instância de <em>type</em>, que deve ser criada com <a class="reference internal" href="#c.PyStructSequence_NewType" title="PyStructSequence_NewType"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_NewType()</span></code></a>.</p>
+<p class="translated">Retorna <code class="docutils literal notranslate"><span class="pre">NULL</span></code> com uma exceção definida em caso de falha.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_GetItem">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_GetItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_GetItem" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_borrowed_ref">Retorna valor: Referência emprestada.</em><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Retorna o objeto na posição <em>pos</em> na sequência de estrutura apontada por <em>p</em>.</p>
+<p class="translated">A verificação de limites é realizada como uma asserção se o Python for construído em <a class="reference internal" href="../using/configure.html#debug-build"><span class="std std-ref">modo de depuração</span></a> ou <a class="reference internal" href="../using/configure.html#cmdoption-with-assertions"><code class="xref std std-option docutils literal notranslate"><span class="pre">com</span> <span class="pre">asserções</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_GET_ITEM">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_GET_ITEM</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_GET_ITEM" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="refcount return_borrowed_ref">Retorna valor: Referência emprestada.</em><p class="translated">Apelido para <a class="reference internal" href="#c.PyStructSequence_GetItem" title="PyStructSequence_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_GetItem()</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.13: </span>Agora implementada como um apelido para <a class="reference internal" href="#c.PyStructSequence_GetItem" title="PyStructSequence_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_GetItem()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_SetItem">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_SetItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">pos</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_SetItem" title="Link para esta definição">¶</a><br /></dt>
+<dd><em class="stableabi"> Parte da <a class="reference internal" href="stable.html#stable"><span class="std std-ref">ABI Estável</span></a>.</em><p class="translated">Define o campo no índice <em>pos</em> da sequência de estrutura <em>p</em> para o valor <em>o</em>. Como <a class="reference internal" href="#c.PyTuple_SET_ITEM" title="PyTuple_SET_ITEM"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SET_ITEM()</span></code></a>, isto só deve ser usado para preencher novas instâncias.</p>
+<p class="translated">A verificação de limites é realizada como uma asserção se o Python for construído em <a class="reference internal" href="../using/configure.html#debug-build"><span class="std std-ref">modo de depuração</span></a> ou <a class="reference internal" href="../using/configure.html#cmdoption-with-assertions"><code class="xref std std-option docutils literal notranslate"><span class="pre">com</span> <span class="pre">asserções</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p class="translated">Esta função “rouba” uma referência a <em>o</em>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyStructSequence_SET_ITEM">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyStructSequence_SET_ITEM</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">p</span></span>, <a class="reference internal" href="intro.html#c.Py_ssize_t" title="Py_ssize_t"><span class="n"><span class="pre">Py_ssize_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pos</span></span>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">o</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_SET_ITEM" title="Link para esta definição">¶</a><br /></dt>
+<dd><p class="translated">Apelido para <a class="reference internal" href="#c.PyStructSequence_SetItem" title="PyStructSequence_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_SetItem()</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Alterado na versão 3.13: </span>Agora implementada como um apelido para <a class="reference internal" href="#c.PyStructSequence_SetItem" title="PyStructSequence_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_SetItem()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Objeto tupla</a></li>
+<li><a class="reference internal" href="#struct-sequence-objects">Objetos sequência de estrutura</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="unicode.html"
+                          title="capítulo anterior">Objetos Unicode e Codecs</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="list.html"
+                          title="próximo capítulo">Objeto List</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/c-api/tuple.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="list.html" title="Objeto List"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="unicode.html" title="Objetos Unicode e Codecs"
+             >anterior</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Manual de referência da API Python/C</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Camada de Objetos Concretos</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objeto tupla</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="../copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>
