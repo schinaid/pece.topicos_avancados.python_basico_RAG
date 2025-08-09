@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Lidando com bugs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.python.org/3/bugs.html" />
+<meta property="og:site_name" content="Python documentation" />
+<meta property="og:description" content="O Python é uma linguagem de programação madura que estabeleceu uma reputação pela estabilidade. A fim de manter esta reputação os desenvolvedores gostariam de saber de quaisquer deficiências que vo..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://docs.python.org/3.13/pt-br/_images/social_previews/summary_bugs_cb023357.png" />
+<meta property="og:image:alt" content="O Python é uma linguagem de programação madura que estabeleceu uma reputação pela estabilidade. A fim de manter esta reputação os desenvolvedores gostariam de saber de quaisquer deficiências que vo..." />
+<meta name="description" content="O Python é uma linguagem de programação madura que estabeleceu uma reputação pela estabilidade. A fim de manter esta reputação os desenvolvedores gostariam de saber de quaisquer deficiências que vo..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+    <title>Lidando com bugs &#8212; Documentação Python 3.13.5</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=234b1a7c" />
+    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=5ff89526" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="_static/documentation_options.js?v=62a4a58b"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=71a39b36"></script>
+    
+    <script src="_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Pesquisar dentro de Documentação Python 3.13.5"
+          href="_static/opensearch.xml"/>
+    <link rel="author" title="Sobre esses documentos" href="about.html" />
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="copyright" title="Direitos autorais" href="copyright.html" />
+    <link rel="next" title="Direitos autorais" href="copyright.html" />
+    <link rel="prev" title="Sobre esta documentação" href="about.html" />
+    
+      
+      <script defer data-domain="docs.python.org" src="https://analytics.python.org/js/script.outbound-links.js"></script>
+      
+      <link rel="canonical" href="https://docs.python.org/3/bugs.html">
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="_static/py.svg">
+            <script type="text/javascript" src="_static/copybutton.js"></script>
+            <script type="text/javascript" src="_static/menu.js"></script>
+            <script type="text/javascript" src="_static/search-focus.js"></script>
+            <script type="text/javascript" src="_static/themetoggle.js"></script> 
+            <script type="text/javascript" src="_static/rtd_switcher.js"></script>
+            <meta name="readthedocs-addons-api-version" content="1">
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h3><a href="contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Lidando com bugs</a><ul>
+<li><a class="reference internal" href="#documentation-bugs">Bugs na documentação</a></li>
+<li><a class="reference internal" href="#using-the-python-issue-tracker">Usando o rastreador de problemas do Python</a></li>
+<li><a class="reference internal" href="#getting-started-contributing-to-python-yourself">Começando a contribuir com o Python por conta própria</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="about.html"
+                          title="capítulo anterior">Sobre esta documentação</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="copyright.html"
+                          title="próximo capítulo">Direitos autorais</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="#">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/bugs.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="copyright.html" title="Direitos autorais"
+             accesskey="N">próximo</a> |</li>
+        <li class="right" >
+          <a href="about.html" title="Sobre esta documentação"
+             accesskey="P">anterior</a> |</li>
+
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+        <li class="nav-item nav-item-this"><a href="">Lidando com bugs</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="dealing-with-bugs">
+<span id="reporting-bugs"></span><h1 class="translated">Lidando com bugs<a class="headerlink" href="#dealing-with-bugs" title="Link para este cabeçalho">¶</a></h1>
+<p class="translated">O Python é uma linguagem de programação madura que estabeleceu uma reputação pela estabilidade. A fim de manter esta reputação os desenvolvedores gostariam de saber de quaisquer deficiências que você encontrar no Python.</p>
+<p class="translated">Às vezes, pode ser mais rápido consertar os bugs você mesmo e contribuir com patches para o Python uma vez que isso agiliza o processo e envolve menos pessoas. Veja aqui como <a class="reference internal" href="#contributing-to-python"><span class="std std-ref">contribuir</span></a>.</p>
+<section id="documentation-bugs">
+<h2 class="translated">Bugs na documentação<a class="headerlink" href="#documentation-bugs" title="Link para este cabeçalho">¶</a></h2>
+<p class="translated">Se você achar um bug nesta documentação ou gostaria de propor uma melhoria, por favor submeta um relatório no <a class="reference internal" href="#using-the-tracker"><span class="std std-ref">rastreador</span></a>. Se você tem uma sugestão sobre como consertá-lo inclua isso também.</p>
+<p class="translated">Você também pode abrir um item de discussão em nosso <a class="reference external" href="https://discuss.python.org/c/documentation/26">fórum Discourse de documentação</a>.</p>
+<p class="translated">Se você encontrar um bug no tema (HTML/CSS/JavaScript) da documentação, envie um relatório de bug no <a class="reference external" href="https://github.com/python/python-docs-theme">rastreador de bugs do python-doc-theme</a>.</p>
+<p class="translated">Se você está com pouco tempo, pode também enviar os relatórios de erros de documentação para o e-mail <a class="reference external" href="mailto:docs&#37;&#52;&#48;python&#46;org">docs<span>&#64;</span>python<span>&#46;</span>org</a> (erros de funcionalidades podem ser enviados para <a class="reference external" href="mailto:python-list&#37;&#52;&#48;python&#46;org">python-list<span>&#64;</span>python<span>&#46;</span>org</a>). ‘docs&#64;’ é uma lista de discussão mantida por voluntários; seu pedido será recebido, embora possa levar um tempo para ser processado.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Ver também</p>
+<dl class="simple">
+<dt class="translated"><a class="reference internal" href="#documentation-bugs">Bugs na documentação</a></dt><dd><p class="translated">Uma lista de bugs na documentação que foram submetidos no rastreador de problemas do Python.</p>
+</dd>
+<dt class="translated"><a class="reference external" href="https://devguide.python.org/tracker/">Rastreando problemas</a></dt><dd><p class="translated">Visão geral do processo envolvido em reportar uma melhoria no rastreador.</p>
+</dd>
+<dt class="translated"><a class="reference external" href="https://devguide.python.org/docquality/#helping-with-documentation">Ajudando com a Documentação</a></dt><dd><p class="translated">Guia compreensivo para os indivíduos que estão interessados em contribuir com a documentação do Python.</p>
+</dd>
+<dt class="translated"><a class="reference external" href="https://devguide.python.org/documentation/translating/">Traduções da Documentação</a></dt><dd><p class="translated">Uma lista de páginas no GitHub relacionadas à tradução da documentação e respectivos contatos iniciais.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="using-the-python-issue-tracker">
+<span id="using-the-tracker"></span><h2 class="translated">Usando o rastreador de problemas do Python<a class="headerlink" href="#using-the-python-issue-tracker" title="Link para este cabeçalho">¶</a></h2>
+<p class="translated">Relatórios de problemas do Python em si devem ser submetidos ao rastreador de problemas do GitHub (<a class="reference external" href="https://github.com/python/cpython/issues">https://github.com/python/cpython/issues</a>). O rastreador de problemas do GitHub oferece um formulário web que permite informações pertinentes serem enviadas para os desenvolvedores.</p>
+<p class="translated">O primeiro passo para preencher um relatório é determinar se o problema já foi reportado. A vantagem em fazê-lo além de poupar o tempo dos desenvolvedores é que você aprende o que foi feito para consertá-lo; pode ser que o problema já foi consertado para o próximo lançamento, ou que informação adicional seja necessária (nesse caso, você é bem-vindo para fornecê-la se você puder!). Para fazer isso, procure no rastreador usando a caixa de busca no topo da página.</p>
+<p class="translated">Se o problema que você está relatando ainda não estiver na lista, faça login no GitHub. Se você ainda não tiver uma conta do GitHub, crie uma nova conta usando o link “Sign Up”. Não é possível enviar um relatório de bug anonimamente.</p>
+<p class="translated">Estando agora autenticado, você pode submeter um relatório de problema. Clique no botão “New issue” na barra superior para relatar um novo problema.</p>
+<p class="translated">O formulário de submissão tem dois campos, “Title” e “Comment”.</p>
+<p class="translated">Para o campo “Title”, insira uma descrição <em>muito</em> curta do problema; menos de dez palavras é bom.</p>
+<p class="translated">No campo “Comment”, descreva o problema com detalhes, incluindo o que você esperava que acontecesse e o que aconteceu. Certifique-se de incluir se quaisquer módulos de extensão estavam envolvidos, e qual hardware e plataforma de software você está usando (incluindo informações sobre a versão quando apropriado).</p>
+<p class="translated">Cada relatório de problema será revisado por um desenvolvedor que irá determinar o que é necessário para solucionar o problema. Você receberá atualizações para cada ação tomada para o problema.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Ver também</p>
+<dl class="simple">
+<dt class="translated"><a class="reference external" href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html">Como Reportar Bugs Eficientemente</a></dt><dd><p class="translated">Artigo que entra em algum detalhe sobre como criar um relatório de bug útil. Isto descreve qual tipo de informação é útil e por quê é útil.</p>
+</dd>
+<dt class="translated"><a class="reference external" href="https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html">Diretrizes para relatar bugs</a></dt><dd><p class="translated">Informação sobre como escrever um bom relatório de bug. Um pouco disto é específico do Projeto Mozilla, mas descreve boas práticas em geral.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="getting-started-contributing-to-python-yourself">
+<span id="contributing-to-python"></span><h2 class="translated">Começando a contribuir com o Python por conta própria<a class="headerlink" href="#getting-started-contributing-to-python-yourself" title="Link para este cabeçalho">¶</a></h2>
+<p class="translated">Além de apenas reportar os bugs que você encontrar, você também é bem-vindo para submeter patches para consertá-los. Você pode achar mais informações sobre como começar a contribuir com patches para o Python no <a class="reference external" href="https://devguide.python.org/">Python Developer’s Guide</a>. Se você tem mais perguntas, a <a class="reference external" href="https://mail.python.org/mailman3/lists/core-mentorship.python.org/">lista de discussão core-mentorship</a> é um lugar amigável para obter respostas para qualquer questão relativa ao processo de resolução de problemas no Python.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="contents.html">Tabela de Conteúdo</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Lidando com bugs</a><ul>
+<li><a class="reference internal" href="#documentation-bugs">Bugs na documentação</a></li>
+<li><a class="reference internal" href="#using-the-python-issue-tracker">Usando o rastreador de problemas do Python</a></li>
+<li><a class="reference internal" href="#getting-started-contributing-to-python-yourself">Começando a contribuir com o Python por conta própria</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="about.html"
+                          title="capítulo anterior">Sobre esta documentação</a></p>
+  </div>
+  <div>
+    <h4>Próximo tópico</h4>
+    <p class="topless"><a href="copyright.html"
+                          title="próximo capítulo">Direitos autorais</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="#">Relatar um bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/main/Doc/bugs.rst?plain=1"
+            rel="nofollow">Mostrar o código-fonte
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+<div id="sidebarbutton" title="Recolher painel lateral">
+<span>«</span>
+</div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="copyright.html" title="Direitos autorais"
+             >próximo</a> |</li>
+        <li class="right" >
+          <a href="about.html" title="Sobre esta documentação"
+             >anterior</a> |</li>
+
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="index.html">3.13.5 Documentation</a> &#187;
+    </li>
+
+        <li class="nav-item nav-item-this"><a href="">Lidando com bugs</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Busca rápida" aria-label="Busca rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+      <a href="copyright.html">
+    
+    Direitos autorais
+    
+      </a>
+     2001-2025, Python Software Foundation.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+      See <a href="/license.html">History and License</a> for more information.<br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+      Última atualização em ago. 03, 2025 (07:16 UTC).
+    
+      <a href="/bugs.html">Found a bug</a>?
+    
+    <br>
+
+    Criada usando <a href="https://www.sphinx-doc.org/pt_BR/master">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>
